@@ -1,15 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using APISeries.Models.EntityFramework; // Vérifie que ce namespace correspond bien à tes fichiers générés
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// 1. Ajouter les contrôleurs et Swagger
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// 2. Injection de dépendance pour la base de données (PostgreSQL)
+builder.Services.AddDbContext<SeriesDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("SeriesDbContext")));
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// 3. Configuration du pipeline HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -17,6 +22,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// 4. Activer les CORS (Indispensable pour que ton futur client WinUI puisse appeler l'API)
+app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
 app.UseAuthorization();
 

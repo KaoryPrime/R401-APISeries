@@ -1,0 +1,40 @@
+<Page
+    x:Class="WinUIApp.Views.SearchSeriePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+        <StackPanel Spacing="10" Padding="20" MaxWidth="500" HorizontalAlignment="Center">
+            <TextBlock Text="Rechercher / Modifier" Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
+
+            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                <NumberBox Header="ID Série" Value="{x:Bind ViewModel.IdSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150" SpinButtonPlacementMode="Inline"/>
+                <Button Content="Rechercher" Command="{x:Bind ViewModel.SearchCommand}" VerticalAlignment="Bottom"/>
+            </StackPanel>
+
+            <MenuFlyoutSeparator Margin="0,10"/>
+
+            <TextBox Header="Titre" Text="{x:Bind ViewModel.SerieToDisplay.Titre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBox Header="Résumé" Text="{x:Bind ViewModel.SerieToDisplay.Resume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     AcceptsReturn="True" Height="100"/>
+
+            <NumberBox Header="Nb Saisons" Value="{x:Bind ViewModel.SerieToDisplay.Nbsaisons, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SpinButtonPlacementMode="Inline"/>
+
+            <NumberBox Header="Nb Épisodes" Value="{x:Bind ViewModel.SerieToDisplay.Nbepisodes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SpinButtonPlacementMode="Inline"/>
+
+            <NumberBox Header="Année création" Value="{x:Bind ViewModel.SerieToDisplay.Anneecreation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SpinButtonPlacementMode="Inline"/>
+
+            <TextBox Header="Chaîne" Text="{x:Bind ViewModel.SerieToDisplay.Network, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,20,0,0">
+                <Button Grid.Column="0" Content="Modifier" Command="{x:Bind ViewModel.ModifyCommand}" HorizontalAlignment="Stretch"/>
+                <Button Grid.Column="1" Content="Supprimer" Command="{x:Bind ViewModel.DeleteCommand}" HorizontalAlignment="Stretch" Background="DarkRed" Foreground="White"/>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36212.18 d17.14
+VisualStudioVersion = 17.14.36212.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APISeries", "APISeries\APISeries.csproj", "{F222934C-3AFA-4D0B-B74C-AE1A33FCDCDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinUIApp", "WinUIApp\WinUIApp.csproj", "{5E404E39-B86E-453A-BDEE-0AA3D2A1D123}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,12 @@ Global
 		{F222934C-3AFA-4D0B-B74C-AE1A33FCDCDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F222934C-3AFA-4D0B-B74C-AE1A33FCDCDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F222934C-3AFA-4D0B-B74C-AE1A33FCDCDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E404E39-B86E-453A-BDEE-0AA3D2A1D123}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{5E404E39-B86E-453A-BDEE-0AA3D2A1D123}.Debug|Any CPU.Build.0 = Debug|x64
+		{5E404E39-B86E-453A-BDEE-0AA3D2A1D123}.Debug|Any CPU.Deploy.0 = Debug|x64
+		{5E404E39-B86E-453A-BDEE-0AA3D2A1D123}.Release|Any CPU.ActiveCfg = Release|x64
+		{5E404E39-B86E-453A-BDEE-0AA3D2A1D123}.Release|Any CPU.Build.0 = Release|x64
+		{5E404E39-B86E-453A-BDEE-0AA3D2A1D123}.Release|Any CPU.Deploy.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
