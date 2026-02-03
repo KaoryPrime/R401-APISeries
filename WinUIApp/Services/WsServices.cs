@@ -1,8 +1,11 @@
-﻿using System.Net.Http.Json;
+﻿using System;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using WinUIApp.Models;
 
 namespace WinUIApp.Services;
+// ... (le reste du code est bon)
 
 public class WsService
 {

@@ -1,83 +1,116 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using APISeries.Models.EntityFramework; // Vérifie que ce namespace est correct
 
 namespace APISeries.Controllers
 {
-    public class SeriesController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class SeriesController : ControllerBase
     {
-        // GET: SeriesController
-        public ActionResult Index()
+        private readonly SeriesDbContext _context;
+
+        public SeriesController(SeriesDbContext context)
         {
-            return View();
+            _context = context;
         }
 
-        // GET: SeriesController/Details/5
-        public ActionResult Details(int id)
+        // GET: api/Series
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Serie>>> GetSeries()
         {
-            return View();
+            if (_context.Series == null)
+            {
+                return NotFound();
+            }
+            return await _context.Series.ToListAsync();
         }
 
-        // GET: SeriesController/Create
-        public ActionResult Create()
+        // GET: api/Series/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Serie>> GetSerie(int id)
         {
-            return View();
+            if (_context.Series == null)
+            {
+                return NotFound();
+            }
+            var serie = await _context.Series.FindAsync(id);
+
+            if (serie == null)
+            {
+                return NotFound();
+            }
+
+            return serie;
         }
 
-        // POST: SeriesController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        // PUT: api/Series/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutSerie(int id, Serie serie)
         {
+            if (id != serie.Serieid)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(serie).State = EntityState.Modified;
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
             }
-            catch
+            catch (DbUpdateConcurrencyException)
             {
-                return View();
+                if (!SerieExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
+
+            return NoContent();
         }
 
-        // GET: SeriesController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: SeriesController/Edit/5
+        // POST: api/Series
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult<Serie>> PostSerie(Serie serie)
         {
-            try
+            if (_context.Series == null)
             {
-                return RedirectToAction(nameof(Index));
+                return Problem("Entity set 'SeriesDbContext.Series'  is null.");
             }
-            catch
-            {
-                return View();
-            }
+            _context.Series.Add(serie);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetSerie", new { id = serie.Serieid }, serie);
         }
 
-        // GET: SeriesController/Delete/5
-        public ActionResult Delete(int id)
+        // DELETE: api/Series/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSerie(int id)
         {
-            return View();
+            if (_context.Series == null)
+            {
+                return NotFound();
+            }
+            var serie = await _context.Series.FindAsync(id);
+            if (serie == null)
+            {
+                return NotFound();
+            }
+
+            _context.Series.Remove(serie);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
 
-        // POST: SeriesController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        private bool SerieExists(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return (_context.Series?.Any(e => e.Serieid == id)).GetValueOrDefault();
         }
     }
 }

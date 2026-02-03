@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Window
     x:Class="WinUIApp.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -9,11 +8,7 @@
     mc:Ignorable="d"
     Title="WinUIApp">
 
-    <Window.SystemBackdrop>
-        <MicaBackdrop />
-    </Window.SystemBackdrop>
-
     <Grid>
-
+        <Frame x:Name="RootFrame"/>
     </Grid>
 </Window>
